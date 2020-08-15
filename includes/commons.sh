@@ -10,7 +10,7 @@
 function interpret() {
     STATUS=0
     CLI_FOLDER=$2
-    files=`find -name "$1" ! -path "*/.history*" ! -path "*/bin/**" ! -path "*/wsanity-check-examples/*" ! -path "*/includes/emptyFile.wlk"`
+    files=`find -name "$1" ! -path "*/.history*" ! -path "*/bin/**" ! -path "*/wsanity-check-examples/*" ! -path "*/includes/emptyFile.wlk" | sed -e 's/ /{__SPACE__}/g' | tr '\n' ' '`
     echo "Procesando"
     $CLI_FOLDER/winterpreter.sh -severalFiles $files "${@:3}"
 }
@@ -23,7 +23,7 @@ function interpret() {
 function interpretSingle() {
     STATUS=0
     CLI_FOLDER=$2
-    for file in `find -name $1 ! -path "*/.history*" ! -path "*/bin/**" ! -path "*/wsanity-check-examples/*" ! -path "*/includes/emptyFile.wlk"`
+    for file in `find -name $1 ! -path "*/.history*" ! -path "*/bin/**" ! -path "*/wsanity-check-examples/*" ! -path "*/includes/emptyFile.wlk" | sed -e 's/ /{__SPACE__}/g' | tr '\n' ' '`
         do
             $CLI_FOLDER/winterpreter.sh $file exitOnBuildFailure "${@:3}"
             if [ $? -ne 0 ] ; then
