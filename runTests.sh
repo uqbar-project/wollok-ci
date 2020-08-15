@@ -16,7 +16,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-find . -name "*.wlk" | egrep '.*'
+find . -name "*.wlk" ! -path "*/bin/**" | egrep '.*'
 
 if [ $? -eq 0 ]; then
     echo "Validando archivos Wollok..."
